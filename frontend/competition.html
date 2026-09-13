@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Assessment — CyberTrace</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div id="bg3d"></div>
+  <div class="bg-scan"></div>
+  <div class="bg-vignette"></div>
+
+  <div class="app" style="max-width:1100px; margin:0 auto; padding:24px;">
+    <div class="topbar">
+      <div>
+        <a href="/cases.html" class="btn btn-sm" style="margin-bottom:8px;">← Back to Team Home</a>
+        <h2 class="display">Case-Based Assessment</h2>
+        <p style="margin:0;">Work through Case 1 → Case 2 → Case 3, then use Final Submission.</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="stat"><span class="value" id="assessmentTimer" style="font-size:1.1rem;">45:00</span> <span class="label">time left</span></div>
+        <div class="stat" style="margin-top:4px;"><span class="value" id="answeredCount" style="font-size:1.1rem;">0/0</span> <span class="label">answered</span></div>
+      </div>
+    </div>
+
+    <div id="flashHost"></div>
+
+    <!-- ---------------- Investigation Session (camera/mic/screen, explicit consent) ---------------- -->
+    <div class="card" id="sessionCard">
+      <div class="card-title">🎥 Investigation Session <span id="sessionStatusBadge" class="badge badge-secondary">INACTIVE</span></div>
+      <p style="margin:-6px 0 14px; font-size:.82rem;">Optional. Sharing your camera/microphone/screen lets the authorized event investigation panel observe your team live. Nothing is shared until you start a session below, and you can stop it instantly at any time — it is never activated remotely.</p>
+      <div id="sessionPrivacyNotice" class="flash info hidden">Your camera/microphone/screen is currently shared with the authorized event investigation panel. Only authorized admins can view it, nothing is recorded, and it is never visible to other teams.</div>
+
+      <label style="display:flex; align-items:flex-start; gap:8px; text-transform:none; font-size:.86rem; color:var(--text); margin-bottom:12px;">
+        <input type="checkbox" id="sessionConsent" style="width:auto; margin:2px 0 0;" />
+        <span>I consent to sharing my selected camera/microphone/screen with the authorized event investigation panel for the duration of this session.</span>
+      </label>
+      <div style="display:flex; gap:18px; margin-bottom:14px; flex-wrap:wrap;">
+        <label style="display:flex; align-items:center; gap:8px; text-transform:none; font-size:.86rem; color:var(--text);"><input type="checkbox" id="sessionCamera" checked style="width:auto; margin:0;" /> Camera</label>
+        <label style="display:flex; align-items:center; gap:8px; text-transform:none; font-size:.86rem; color:var(--text);"><input type="checkbox" id="sessionMic" checked style="width:auto; margin:0;" /> Microphone</label>
+        <label style="display:flex; align-items:center; gap:8px; text-transform:none; font-size:.86rem; color:var(--text);"><input type="checkbox" id="sessionScreen" style="width:auto; margin:0;" /> Screen / Window</label>
+      </div>
+      <div id="sessionSupportWarning"></div>
+      <button class="btn btn-primary" id="sessionStartBtn">Start Session</button>
+      <button class="btn btn-danger hidden" id="sessionStopBtn">Stop Sharing</button>
+
+      <div id="sessionPreviewWrap" class="hidden" style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap;">
+        <div>
+          <video id="sessionPreview" autoplay playsinline muted style="width:220px; border-radius:var(--radius-sm); border:1px solid var(--border); background:#000; display:block;"></video>
+          <div class="field-hint" style="margin-top:6px;">Camera/microphone preview.</div>
+        </div>
+        <div id="sessionScreenPreviewWrap" class="hidden">
+          <video id="sessionScreenPreview" autoplay playsinline muted style="width:220px; border-radius:var(--radius-sm); border:1px solid var(--border); background:#000; display:block;"></video>
+          <div class="field-hint" style="margin-top:6px;">Screen-share preview.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------------- Assessment (hidden once submitted) ---------------- -->
+    <div id="assessmentBody">
+      <div class="card" style="margin-top:16px;">
+        <div class="progress-summary">
+          <div class="bar"><div class="fill" id="progressFill" style="width:0%;"></div></div>
+          <div class="count" id="progressCount">0 / 0 answered</div>
+          <div class="count" id="hintPenaltyNote" style="color:var(--warning);"></div>
+        </div>
+        <div class="case-tabs" id="caseTabs"></div>
+        <div class="qnav" id="qnav"></div>
+        <div id="questionsHost"></div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div class="card-title">✅ Final Submission</div>
+        <p style="margin:-6px 0 14px; font-size:.82rem;">
+          Submitting evaluates every answer across all three cases and produces one combined score out of 100.
+          You can review and change any answer before submitting — once submitted, the assessment is locked.
+        </p>
+        <div id="validationBox"></div>
+        <button class="btn btn-primary" id="finalSubmitBtn">Submit Final Assessment</button>
+      </div>
+    </div>
+
+    <!-- ---------------- Result screen ---------------- -->
+    <div id="resultBody" class="hidden"></div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="/js/bg3d.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/ws-client.js"></script>
+<script src="/js/competition.js"></script>
+</body>
+</html>

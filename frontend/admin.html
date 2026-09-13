@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Dashboard — CyberTrace</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div id="bg3d"></div>
+  <div class="bg-scan"></div>
+  <div class="bg-vignette"></div>
+
+  <div class="app shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="dot"></span><span>CyberTrace Admin</span></div>
+      <div class="nav-link active">📊 Live Dashboard</div>
+      <a class="nav-link" href="/leaderboard.html" style="text-decoration:none;">🏆 Leaderboard</a>
+      <div style="flex:1"></div>
+      <div class="nav-link" id="logoutBtn">⎋ Log Out</div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <h2 class="display">Live Competition Dashboard</h2>
+          <p style="margin:0"><span class="live-dot"></span> Real-time — every login, evidence view, answer, and hint shows up here instantly.</p>
+        </div>
+        <button class="btn btn-primary" id="newTeamBtn">+ New Team</button>
+      </div>
+
+      <div id="flashHost"></div>
+
+      <div class="grid grid-4" style="margin-bottom:16px;">
+        <div class="card stat"><div class="value" id="statTeams">–</div><div class="label">Teams</div></div>
+        <div class="card stat"><div class="value" id="statOnline">–</div><div class="label">Online now</div></div>
+        <div class="card stat"><div class="value" id="statCasesInProgress">–</div><div class="label">Cases in progress</div></div>
+        <div class="card stat"><div class="value" id="statCasesCompleted">–</div><div class="label">Cases completed</div></div>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title">Teams <button class="btn btn-sm" id="exportBtn">⬇ Export CSV</button></div>
+          <div style="overflow-x:auto;">
+            <table id="teamsTable">
+              <thead><tr><th>Team</th><th>Cases</th><th>Score</th><th>Members</th><th>Last activity</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Live Activity Feed</div>
+          <div class="feed" id="feed"></div>
+        </div>
+      </div>
+
+      <div class="card" id="teamDetailCard" style="display:none; margin-top:16px;">
+        <div class="card-title">Team Detail <button class="btn btn-sm" id="closeDetail">✕ Close</button></div>
+        <div id="teamDetailBody"></div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div class="card-title">🎥 Active Investigation Sessions</div>
+        <p style="margin:-6px 0 12px; font-size:.82rem;">Only teams that explicitly started sharing appear here. There is no control here to turn on a participant's camera or microphone remotely.</p>
+        <div id="sessionsList"><p style="color:var(--text-faint); font-size:.86rem;">No active sessions.</p></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- New team modal -->
+  <div id="modalOverlay" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:50; display:flex; align-items:center; justify-content:center;">
+    <div class="card" style="width:420px;">
+      <div class="card-title">Create Team + Leader Login</div>
+      <form id="newTeamForm">
+        <label>Team Name</label>
+        <input id="teamName" required />
+        <label>College / Section (optional)</label>
+        <input id="college" />
+        <label>Leader Full Name</label>
+        <input id="leaderFullName" required />
+        <label>Leader Username</label>
+        <input id="leaderUsername" required />
+        <label>Leader Password</label>
+        <input id="leaderPassword" type="text" required />
+        <div class="field-hint">Give these credentials to the team leader. The team can attempt all three cases once logged in — no need to assign one.</div>
+        <div style="display:flex; gap:10px;">
+          <button type="button" class="btn" id="cancelModal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-block">Create Team</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Live session viewer -->
+  <div id="sessionModalOverlay" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:60; display:flex; align-items:center; justify-content:center;">
+    <div class="card" style="width:520px;">
+      <div class="card-title">Live Session — <span id="sessionModalTeam"></span> <button class="btn btn-sm" id="sessionModalClose">✕ Close</button></div>
+      <video id="sessionModalVideo" autoplay playsinline style="width:100%; border-radius:var(--radius-sm); background:#000; display:block;"></video>
+      <div style="margin-top:10px; display:flex; gap:16px; font-size:.8rem; color:var(--text-dim);">
+        <span>Camera: <span id="sessionModalCam">–</span></span>
+        <span>Microphone: <span id="sessionModalMic">–</span></span>
+        <span>Screen: <span id="sessionModalScreen">–</span></span>
+      </div>
+      <p class="field-hint" style="margin-top:10px;">You're viewing a session this participant explicitly started. Closing this stops your view only.</p>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="/js/bg3d.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/ws-client.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>

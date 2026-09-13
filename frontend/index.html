@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CyberTrace — Digital Crime Scene</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div id="bg3d"></div>
+  <div class="bg-scan"></div>
+  <div class="bg-vignette"></div>
+
+  <!-- ============ Cinematic intro ============ -->
+  <div id="introScreen">
+    <div id="introCanvas"></div>
+    <div class="intro-overlay">
+      <div class="intro-kicker">CYBER CRIME INVESTIGATION</div>
+      <h1 class="intro-title">CyberTrace</h1>
+      <p class="intro-sub">A simulated packet just crossed the network. Something on the other end doesn't look right — step into the command center and find out what happened.</p>
+      <div class="intro-log" id="introLog">Establishing secure connection…</div>
+      <button class="btn btn-primary intro-enter-btn" id="enterBtn">ENTER INVESTIGATION</button>
+    </div>
+  </div>
+
+  <!-- ============ Login console ============ -->
+  <div class="center-screen">
+    <div class="hero">
+      <div class="kicker">Digital Crime Scene · College Tech Fest</div>
+      <h1>Cyber Crime Investigation</h1>
+      <p>All cases, evidence, and data on this platform are fictional — built for a college tech-fest competition. No real hacking, credentials, or systems are involved.</p>
+    </div>
+
+    <div class="card login-card">
+      <div class="login-tabs">
+        <div class="login-tab active" data-role="leader">Team Leader</div>
+        <div class="login-tab" data-role="member">Team Member</div>
+        <div class="login-tab" data-role="admin">Admin</div>
+      </div>
+
+      <div id="flashHost"></div>
+
+      <form id="loginForm">
+        <label>Username</label>
+        <input id="username" required autocomplete="username" />
+        <label>Password</label>
+        <input id="password" type="password" required autocomplete="current-password" />
+        <button class="btn btn-primary btn-block" type="submit" id="loginBtn">Log In</button>
+      </form>
+      <p class="field-hint" id="roleHint" style="margin-top:14px;">Team leaders and members: log in with the username/password your organizer or team leader gave you.</p>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="/js/bg3d.js"></script>
+<script src="/js/landing3d.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/landing.js"></script>
+</body>
+</html>

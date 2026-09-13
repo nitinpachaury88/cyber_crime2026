@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Leaderboard — CyberTrace</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div id="bg3d"></div>
+  <div class="bg-scan"></div>
+  <div class="bg-vignette"></div>
+
+  <div class="app" style="max-width:800px; margin:0 auto; padding:24px;">
+    <div class="topbar">
+      <div>
+        <h2 class="display">🏆 Investigation Leaderboard</h2>
+        <p style="margin:0">Ranked by net score (raw score minus hint penalties) across all three cases.</p>
+      </div>
+      <a class="btn btn-sm" href="#" id="backLink">← Back</a>
+    </div>
+    <div id="flashHost"></div>
+    <div class="card">
+      <table id="boardTable">
+        <thead><tr><th>Rank</th><th>Team</th><th>Cases Completed</th><th>Net Score</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="/js/bg3d.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/leaderboard.js"></script>
+</body>
+</html>
