@@ -22,8 +22,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[settings.CLIENT_ORIGIN] if settings.CLIENT_ORIGIN != "http://localhost:3306" else ["*"],
     allow_credentials=True,
-    allow_methods=["http://localhost:3306"],
-    allow_headers=["http://localhost:3306"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(auth.router)
